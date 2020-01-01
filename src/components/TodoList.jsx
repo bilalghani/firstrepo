@@ -5,19 +5,18 @@ import AddTodo from "./AddTodo";
 let id = 0;
 export default class TodoList extends Component {
   state = {
-    todos: [
-      {
-        content: "new",
-        isComopleted: false
-      }
-    ]
+    todos: []
   };
+
+  componentDidUpdate(prevprops, prevState) {
+    console.log(prevState);
+  }
 
   add_todo = content => {
     //let oldTodos = this.state.todos.slice();
     //oldTodos.push({ content: content, isComopleted: false });
     this.setState({
-      todos: [...this.state.todos, { content: content, isComopleted: false }]
+      todos: [...this.state.todos, { content: content, isCompleted: false }]
     });
   };
 
@@ -31,9 +30,10 @@ export default class TodoList extends Component {
     this.setState({});
   };
 
-  complete_todo(){
-    
-  }
+  complete_todo = i => {
+    this.state.todos[i].isCompleted = true;
+    this.setState({});
+  };
 
   alertHi = () => {
     alert("Hi");
@@ -51,6 +51,7 @@ export default class TodoList extends Component {
               index={index}
               modify_todo={this.modify_todo}
               delete_todo={this.delete_todo}
+              complete_todo={this.complete_todo}
             />
           );
         })}

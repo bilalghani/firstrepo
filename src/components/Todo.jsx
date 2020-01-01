@@ -15,7 +15,10 @@ export default class Todo extends Component {
     this.props.delete_todo(this.props.index);
   };
 
-  handleComplete = e => {};
+  handleComplete = e => {
+    e.preventDefault();
+    this.props.complete_todo(this.props.index);
+  };
   submit = e => {
     e.preventDefault();
     const txt = e.target.elements["updated"].value;
@@ -36,12 +39,19 @@ export default class Todo extends Component {
       );
     return (
       <div>
-        <p style={{ display: "inline-block", textDecoration: "line-through" }}>
+        <p
+          style={
+            (this.state.data.isCompleted
+              ? { textDecoration: "line-through" }
+              : null,
+            { display: "inline-block" })
+          }
+        >
           {this.state.data.content}
         </p>
-        <button onClick={this.handleToggleEdit}>EDIT</button>
+        {<button onClick={this.handleToggleEdit}>EDIT</button>}
         <button onClick={this.handleDelete}>DELETE</button>
-        <button>Completed</button>
+        <button onClick={this.handleComplete}>Completed</button>
       </div>
     );
   }
