@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 
 export default class AddTodo extends Component {
+  state = {
+    data: this.props.data
+  };
   onsubmit = e => {
     e.preventDefault();
+
     const text = e.target.elements["valueText"].value;
     this.props.add_todo(text);
   };

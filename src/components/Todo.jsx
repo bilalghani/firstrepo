@@ -2,8 +2,7 @@ import React, { Component } from "react";
 
 export default class Todo extends Component {
   state = {
-    data: this.props.data,
-    index: this.props.index
+    data: this.props.data
   };
 
   handleToggleEdit = () => {
@@ -12,11 +11,13 @@ export default class Todo extends Component {
 
   handleDelete = e => {
     e.preventDefault();
+
     this.props.delete_todo(this.props.index);
   };
 
   handleComplete = e => {
     e.preventDefault();
+    // console.log(e);
     this.props.complete_todo(this.props.index);
   };
   submit = e => {
@@ -32,7 +33,6 @@ export default class Todo extends Component {
         <div>
           <form onSubmit={this.submit}>
             <input type="text" name="updated" />
-
             <button type="submit">UPDATE</button>
           </form>
         </div>
@@ -41,15 +41,17 @@ export default class Todo extends Component {
       <div>
         <p
           style={
-            (this.state.data.isCompleted
+            this.state.data.isCompleted
               ? { textDecoration: "line-through" }
-              : null,
-            { display: "inline-block" })
+              : null
           }
         >
           {this.state.data.content}
+          {this.state.index}
         </p>
-        {<button onClick={this.handleToggleEdit}>EDIT</button>}
+        {!this.state.data.isCompleted && (
+          <button onClick={this.handleToggleEdit}>EDIT</button>
+        )}
         <button onClick={this.handleDelete}>DELETE</button>
         <button onClick={this.handleComplete}>Completed</button>
       </div>
